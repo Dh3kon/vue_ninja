@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Aula 17 - Vuejs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ titulo }}</h1>
+      <button @click.stop.prevent="getUsers()" class="btn btn-success btn-lg">
+        Get Users
+      </button>
+    </div>
+
+    <script>
+      var mixin = {
+        created() {
+          console.log("Hello Vue from mixin!");
+        },
+        methods: {
+          getUsers() {
+            // rotina de programação
+            //localizar usuários
+            console.log("Get users from mixin");
+          }
+        }
+      };
+      var app = new Vue({
+        el: "#app",
+        mixins: [mixin],
+        data: {
+          titulo: "Vue.js do jeito ninja!"
+        },
+        methods: {
+          getUsers() {
+            // rotina de programação
+            //localizar usuários
+            console.log("Get users from Vue");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

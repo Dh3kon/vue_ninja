@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aula 06 - Vuejs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="https://unpkg.com/vue"></script>
+    <style media="screen">
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{titulo}}</h1>
+        <img v-bind:src="imagem" v-bind:alt="alt" :data-img-large="imagem">
+        <p :class="colorStyle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio voluptatibus incidunt
+            aliquid,
+            nisi recusandae exercitationem saepe autem repudiandae qui cupiditate rem ipsam beatae officiis voluptatem
+            et dolores facilis minima nesciunt.</p>
+    </div>
+</body>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            titulo: "Vuejs do jeito ninja!",
+            imagem: "https://vuejs.org/images/logo.png?_sw-precache=cf23526f451784ff137f161b8fe18d5a",
+            alt: "Vuejs is awesome!",
+            colorStyle: "red"
+        }
+    })
+</script>
+
+</html>

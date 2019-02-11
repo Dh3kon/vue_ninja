@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Aula 16 - Vuejs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+    <div id="app">
+      <br /><br /><br />
+      <div class="container">
+        <card>
+          <h4 slot="title" class="card-title">Card title</h4>
+          <template slot="text">
+            <p slot="text" class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+          </template>
+
+          <a slot="action" href="#" class="btn btn-primary">Go somewhere</a>
+        </card>
+
+        <card>
+          <h4 class="card-title">Card title</h4>
+          <p slot="text" class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </card>
+      </div>
+    </div>
+
+    <template id="card">
+      <div class="card" style="width: 18rem;">
+        <img
+          src="http://via.placeholder.com/350x150"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <slot name="title"></slot> <slot name="text"></slot
+          ><slot name="action"></slot>
+        </div>
+      </div>
+    </template>
+
+    <script>
+      Vue.component("card", {
+        template: "#card",
+        data() {
+          return {
+            title: ""
+          };
+        }
+      });
+      var app = new Vue({
+        el: "#app",
+        data: {
+          titulo: "Using Vue Js"
+        }
+      });
+    </script>
+  </body>
+</html>

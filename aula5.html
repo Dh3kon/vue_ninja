@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aula 05 - Vue.js - V-Model</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{titulo}}</h1>
+        <label for="">Nome</label><br>
+        <input type="text" v-model="nome">
+
+        <br><br>
+        <label for="">Telefone</label><br>
+        <input type="text" v-model="telefone">
+
+        <br><br>
+        <label for="">Deseja receber nossas novidades?</label><br>
+        <input type="radio" value="Sim" id="" v-model="novidades"> Sim
+        <input type="radio" value="Não" id="" v-model="novidades"> Não
+
+        <br><br>
+        <label for="interesses"></label><br>
+        <input type="checkbox" value="Futebol" id="" v-model="interesses"> Futebol <br>
+        <input type="checkbox" value="Formula 1" id="" v-model="interesses"> Formula 1 <br>
+        <input type="checkbox" value="Basquete" id="" v-model="interesses"> Basquete <br>
+
+        <br><br>
+        <label for="">Como nos conheceu?</label><br>
+        <select name="" id="" v-model="conheceu">
+            <option value="">Escolha...</option>
+            <option value="Internet">Internet</option>
+            <option value="TV">TV</option>
+            <option value="Revista">Revista</option>
+        </select>
+        <br><br>
+        <button>Enviar</button>
+        <hr>
+        Nome:{{ nome }} <br>
+        Telefone: {{ telefone}} <br>
+        Novidades: {{ novidades}} <br>
+        Interesses: {{ interesses}} <br>
+        Como você nos conheceu? {{ conheceu}} <br>
+    </div>
+</body>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            titulo: "Vuejs do jeito ninja motherfucker!",
+            nome: '',
+            telefone: "",
+            novidades: "",
+            interesses: [],
+            conheceu: ""
+        }
+    })
+</script>
+
+</html>

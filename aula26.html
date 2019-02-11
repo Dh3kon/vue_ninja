@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Aula 26 - Vuejs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <h1 ref="title">{{ titulo }}</h1>
+
+        <ul>
+          <li>
+            <router-link :to="{name: 'transformers'}">Transformers</router-link>
+          </li>
+          <li>
+            <router-link to="{name: 'gameOfThrones'}"
+              >Game Of Thrones</router-link
+            >
+          </li>
+          <li><router-link to="/arrow">Arrow</router-link></li>
+        </ul>
+
+        <router-view></router-view>
+        <br />
+      </div>
+    </div>
+
+    <template id="transformers">
+      <div>
+        <div class="row">
+          <div class="col">
+            <h4>Transformers</h4>
+            <ul>
+              <li v-for="item in transformers">
+                <router-link
+                  :to="{name:'transformersContent', params: {name: item.slug}}"
+                  >{{ item.name }}</router-link
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col"><router-view></router-view></div>
+        </div>
+      </div>
+    </template>
+    <template id="gameOfThrones">
+      <div>
+        <h4>Game Of Thrones</h4>
+        <ul>
+          <li>Jon Snow</li>
+        </ul>
+      </div>
+    </template>
+    <template id="transformersContent">
+      <div>
+        <h3>Conteúdo dos Transformers</h3>
+        {{ $route.params.name }}
+      </div>
+    </template>
+    <template id="error404">
+      <div>
+        <h1>Página não encontrada</h1>
+        <p>Ops! Parece que esta página não existe.</p>
+      </div>
+    </template>
+
+    <script>
+      var Transformers = Vue.component("transformers", {
+        template: "#transformers",
+        data() {
+          return {
+            transformers: [
+              { name: "Optimus Prime", slug: "optimus-prime" },
+              { name: "Bumblebee", slug: "bumblebee" },
+              { name: "Megatron", slug: "megatron" }
+            ]
+          };
+        }
+      });
+      var GameOfThrones = Vue.component("game-of-thrones", {
+        template: "#gameOfThrones",
+        data() {
+          return {
+            gameOfThrones: [
+              { name: "Jon Snow" },
+              { name: "Daenerys Targaryen" },
+              { name: "Tyron" }
+            ]
+          };
+        }
+      });
+      var TransformersContent = Vue.component("transformers-content", {
+        template: "#transformersContent"
+      });
+
+      var error404 = Vue.component("error404", {
+        template: "#error404"
+      });
+
+      var router = new VueRouter({
+        mode: "history",
+        routes: [
+          {
+            path: "/",
+            name: "home",
+            redirect: {
+              name: "trnsformersContent",
+              params: { name: "optimus-prime" }
+            }
+          },
+          {
+            path: "/transformers",
+            name: "transformers",
+            component: Transformers,
+            children: [
+              {
+                path: ":name",
+                name: "transformersContent",
+                component: TransformersContent
+              }
+            ]
+          },
+          {
+            path: "/game-of-thrones",
+            name: "gameOfThrones",
+            component: GameOfThrones
+          },
+          {
+            path: "*",
+            name: "error404",
+            component: error404
+          }
+        ]
+      });
+
+      var app = new Vue({
+        el: "#app",
+        router,
+        created() {
+          //   console.log(this.$router);
+          //   console.log(this.$route);
+          //   this.$router.push({
+          //     name: "transformersContent",
+          //     params: { name: "megatron" }
+          //   });
+        },
+        data: {
+          titulo: "Vuejs do jeito ninja!"
+        }
+      });
+    </script>
+  </body>
+</html>

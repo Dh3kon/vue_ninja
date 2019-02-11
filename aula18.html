@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Aula 18 - Vuejs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+    <script src="https:/unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ titulo }}</h1>
+      <button @click.stop.prevent="getUsers()" class="btn btn-success btn-lg">
+        Get Users
+      </button>
+      <div class="alert alert-danger" v-if="response.status == 'error'">
+        {{ response.mensagem }}
+      </div>
+      <div class="alert alert-info" v-if="loader.users == true">
+        Carregando usuários...
+      </div>
+      <ul>
+        <li v-for="user in users">{{ user.name }}</li>
+      </ul>
+    </div>
+
+    <script>
+      var mixin = {
+        methods: {
+          getUsers() {
+            this.loader.users = true;
+            var url = "http://jsonplaceholder.typicode.com/users";
+            this.$http
+              .get(url)
+              .then(
+                function(response) {
+                  this.users = response.body;
+                  console.log(response.body);
+                },
+                function(error) {
+                  this.response.status = "error";
+                  console.log(error);
+                }
+              )
+              .finally(function() {
+                this.loader.users = false;
+              });
+          }
+        }
+      };
+      var app = new Vue({
+        el: "#app",
+        mixins: [mixin],
+        data: {
+          titulo: "Vue.js do jeito ninja!",
+          users: [],
+          loader: {
+            users: false
+          },
+          response: {
+            mensagem: "Página não encontrada",
+            status: ""
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

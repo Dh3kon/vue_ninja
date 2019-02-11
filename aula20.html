@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Aula 20 - Vuejs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <h1 ref="title">{{ titulo }}</h1>
+
+        <component v-bind:is="movie"></component>
+
+        <!-- <transformers v-if="movie == 'transformers'"></transformers> -->
+        <!-- <game-of-thrones v-if="movie == 'game-of-thrones'"></game-of-thrones> -->
+
+        <ul ref="users">
+          <li v-for="(item, index) in users" :key="item.name">
+            {{ item.name }} <a @click.stop.prevent="remove()">x</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <template id="transformers">
+      <div>
+        <h4>Transformers</h4>
+        <ul>
+          <li v-for="item in transformers">{{ item.name }}</li>
+        </ul>
+      </div>
+    </template>
+    <template id="gameOfThrones"></template>
+
+    <script>
+      Vue.component("transformers", {
+        data: {
+          users: [
+            { name: "Optimus Prime" },
+            { name: "Bunblebee" },
+            { name: "Megatron" }
+          ]
+        }
+      }),
+        Vue.component("game-of-thrones", {});
+      var app = new Vue({
+        el: "#app",
+        mounted() {
+          console.log(this.$refs.users);
+        },
+        data: {
+          titulo: "Vuejs do jeito ninja!",
+          users: [{ name: "Emma" }, { name: "Sophia" }, { name: "Isabela" }],
+          movie: "transformers"
+        },
+        methods: {
+          remove(index) {
+            this.users.splice(index, 1);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

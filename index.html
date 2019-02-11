@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aula 01 - Vuejs do jeito ninja</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <a href="index2.html" target="_blank" rel="noopener noreferrer">Index2 </a>
+    <div id="app">
+        <h1 v-if="status">{{titulo}}</h1>
+        <p v-if="texto">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos sed fuga quo assumenda explicabo in. Debitis
+            recusandae maiores, ducimus saepe id, blanditiis laboriosam eius culpa esse numquam ipsa quod quam.
+        </p>
+        <div v-else>Não existe texto</div>
+        <div v-if="usuario.nome == 'Angela'">
+            Id: {{usuario.id}} <br>
+            Nome: {{usuario.nome}} <br>
+            Profissão: {{usuario.profissao}}
+        </div>
+        <div v-else>Nenhum usuário com o id 1</div>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                status: false,
+                texto: false,
+                titulo: "Aula 01 - Vuejs",
+                usuario: {
+                    id: 1,
+                    nome: "Angela Ziegler",
+                    profissao: "Médica"
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Aula 21 - Vuejs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <style>
+      fade-enter-active,
+      .fade-leave-active {
+        transition: opacity 0.5s;
+      }
+      .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <h1 ref="title">{{ titulo }}</h1>
+
+        <select v-model="movie">
+          <option value="transformers">Transformers</option>
+          <option value="game-of-thrones">Game of Thrones</option>
+        </select>
+
+        <transition name="fade">
+          <component v-bind:is="movie"></component>
+        </transition>
+
+        <!-- <transformers v-if="movie == 'transformers'"></transformers> -->
+        <!-- <game-of-thrones v-if="movie == 'game-of-thrones'"></game-of-thrones> -->
+
+        <ul ref="users">
+          <li v-for="(item, index) in users" :key="item.name">
+            {{ item.name }} <a @click.stop.prevent="remove()">x</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <template id="transformers">
+      <div>
+        <h4>Transformers</h4>
+        <ul>
+          <li>Optimus Prime</li>
+          <li>Bumblebee</li>
+          <li>Megatron</li>
+        </ul>
+      </div>
+    </template>
+    <template id="gameOfThrones">
+      <div>
+        <h4>Game Of Thrones</h4>
+        <ul>
+          <li>Jon Snow</li>
+          <li>Daenerys Targaryen</li>
+          <li>Tyron</li>
+        </ul>
+      </div>
+    </template>
+
+    <script>
+      Vue.component("transformers", {
+        template: "#transformers"
+      }),
+        Vue.component("game-of-thrones", {
+          template: "#game-of-thrones"
+        });
+      var app = new Vue({
+        el: "#app",
+        mounted() {
+          console.log(this.$refs.users);
+        },
+        data: {
+          titulo: "Vuejs do jeito ninja!",
+          users: [{ name: "Emma" }, { name: "Sophia" }, { name: "Isabela" }],
+          movie: "transformers"
+        },
+        methods: {
+          remove(index) {
+            this.users.splice(index, 1);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
